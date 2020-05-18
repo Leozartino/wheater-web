@@ -1,7 +1,4 @@
 /* eslint-disable no-console */
-// Is where we are going to pull all our logic app so
-// the first thing is let's use this controller to interact
-// with our views and doing that is as simple as creating a new route handler.
 import { Request, Response, NextFunction } from 'express';
 import axios from 'axios';
 
