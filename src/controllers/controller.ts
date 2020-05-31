@@ -1,10 +1,19 @@
 /* eslint-disable no-console */
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import axios from 'axios';
-
+import token from '../../util/token.js';
 import Wheater from '../model/Wheater';
 
-const API_KEY = 'aa528343fb2a6e1dcb3a3d854db022f3';
+interface RequestDTO {
+  data: {
+    name: string;
+    main: {
+      temp: number;
+    };
+  };
+}
+
+const API_KEY = token;
 
 export const renderHomePage = (_: Request, response: Response): void => {
   return response.render('index');
@@ -22,7 +31,7 @@ export const getWeather = (request: Request, response: Response): void => {
   if (wheaterInstance.getErros().length === 0) {
     axios
       .get(url)
-      .then(responseAPI => {
+      .then((responseAPI: RequestDTO) => {
         const { temp } = responseAPI.data.main;
         const { name } = responseAPI.data;
         return response.render('index', {
